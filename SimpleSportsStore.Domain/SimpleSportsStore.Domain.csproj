@@ -51,11 +51,28 @@
     <Compile Include="Concrete\FakeProductRepository.cs" />
     <Compile Include="Concrete\ProductRepository.cs" />
     <Compile Include="Entities\Product.cs" />
+    <Compile Include="Migrations\201402122009480_InitialCreate.cs" />
+    <Compile Include="Migrations\201402122009480_InitialCreate.Designer.cs">
+      <DependentUpon>201402122009480_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201402122011096_AddInStock.cs" />
+    <Compile Include="Migrations\201402122011096_AddInStock.Designer.cs">
+      <DependentUpon>201402122011096_AddInStock.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201402122009480_InitialCreate.resx">
+      <DependentUpon>201402122009480_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201402122011096_AddInStock.resx">
+      <DependentUpon>201402122011096_AddInStock.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

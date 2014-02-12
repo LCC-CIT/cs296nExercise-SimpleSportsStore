@@ -6,9 +6,9 @@ using System.Web.Mvc;
 using System.Text;
 using SimpleSportsStore.Domain.Concrete;
 using SimpleSportsStore.Domain.Entities;
-using SimpleSportsStore.Controllers;
-using SimpleSportsStore.Models;
-using SimpleSportsStore.HtmlHelpers;
+using SimpleSportsStore.WebUI.Controllers;
+using SimpleSportsStore.WebUI.Models;
+using SimpleSportsStore.WebUI.HtmlHelpers;
 
 namespace SimpleSportsStore.Test
 {
