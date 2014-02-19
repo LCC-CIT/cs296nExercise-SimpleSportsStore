@@ -12,6 +12,8 @@ namespace SimpleSportsStore.Domain.Entities
         public int ProductID { get; set; }
         [Required]
         public string Name { get; set; }
+        [Required]
+        public string Category { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
         public bool InStock { get; set; }

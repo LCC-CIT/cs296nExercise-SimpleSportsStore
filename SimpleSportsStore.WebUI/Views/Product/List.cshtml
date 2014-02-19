@@ -16,5 +16,9 @@
 }
 
 <div class="pager">
-   @Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new {page = x}))
+    @* Html.PageLinks returns HTML for a set  of links; 
+       Params: 1) PagingInfo object, 2) Delegate -note this is a method definition in lambda notation
+       The delegate allows us to define the way the links are formed
+       Url.Action returns a string; Params: 1) controller method, 2) routeValues object *@
+   @Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new {page = x, category = Model.CurrentCategory}))
 </div>

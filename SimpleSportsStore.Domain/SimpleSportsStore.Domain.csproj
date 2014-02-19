@@ -59,6 +59,14 @@
     <Compile Include="Migrations\201402122011096_AddInStock.Designer.cs">
       <DependentUpon>201402122011096_AddInStock.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201402122156056_AddCategory.cs" />
+    <Compile Include="Migrations\201402122156056_AddCategory.Designer.cs">
+      <DependentUpon>201402122156056_AddCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201402122202388_RequireCategory.cs" />
+    <Compile Include="Migrations\201402122202388_RequireCategory.Designer.cs">
+      <DependentUpon>201402122202388_RequireCategory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -72,6 +80,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201402122011096_AddInStock.resx">
       <DependentUpon>201402122011096_AddInStock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201402122156056_AddCategory.resx">
+      <DependentUpon>201402122156056_AddCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201402122202388_RequireCategory.resx">
+      <DependentUpon>201402122202388_RequireCategory.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

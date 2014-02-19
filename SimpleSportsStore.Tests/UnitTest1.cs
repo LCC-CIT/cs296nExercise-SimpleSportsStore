@@ -33,10 +33,10 @@ namespace SimpleSportsStore.Test
             controller.PageSize = 3;
 
             // Act
-            var result = (IEnumerable<Product>)controller.List(2).Model;
+            var result = (ProductsListViewModel)controller.List(null, 2).Model;  // no category specified
 
             // Assert
-            Product[] prodArray = result.ToArray();
+            Product[] prodArray = result.Products.ToArray();
             Assert.IsTrue(prodArray.Length == 2);
             Assert.AreEqual(prodArray[0].Name, "P4");
             Assert.AreEqual(prodArray[1].Name, "P5");
@@ -45,7 +45,6 @@ namespace SimpleSportsStore.Test
         [TestMethod]
         public void Can_Generate_Page_Links()
         {
-
             // Arrange - define an HTML helper - we need to do this
             // in order to apply the extension method
             HtmlHelper myHelper = null;
@@ -68,6 +67,35 @@ namespace SimpleSportsStore.Test
             Assert.AreEqual(result.ToString(), @"<a href=""Page1"">1</a>"
                 + @"<a class=""selected"" href=""Page2"">2</a>"
                 + @"<a href=""Page3"">3</a>");
+        }
+
+        [TestMethod]
+        public void Can_Filter_Products() {
+
+        // Arrange
+        // - create the mock repository
+            var products = new List<Product> {
+            new Product {ProductID = 1, Name = "P1", Category = "Cat1"},
+            new Product {ProductID = 2, Name = "P2", Category = "Cat2"},
+            new Product {ProductID = 3, Name = "P3", Category = "Cat1"},
+            new Product {ProductID = 4, Name = "P4", Category = "Cat2"},
+            new Product {ProductID = 5, Name = "P5", Category = "Cat3"}
+            };
+
+            var mockRepo = new FakeProductRepository(products);
+
+        // Arrange - create a controller and make the page size 3 items
+            var controller = new ProductController(mockRepo);
+            controller.PageSize = 3;
+
+        // Action
+        Product[] result = ((ProductsListViewModel)controller.List("Cat2", 1).Model)
+            .Products.ToArray();
+
+        // Assert
+        Assert.AreEqual(result.Length, 2);
+        Assert.IsTrue(result[0].Name == "P2" && result[0].Category == "Cat2");
+        Assert.IsTrue(result[1].Name == "P4" && result[1].Category == "Cat2");
         }
 
     }
