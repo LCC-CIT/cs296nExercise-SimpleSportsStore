@@ -42,6 +42,7 @@ namespace SimpleSportsStore.Test
             Assert.AreEqual(prodArray[1].Name, "P5");
         }
 
+
         [TestMethod]
         public void Can_Generate_Page_Links()
         {
@@ -69,11 +70,13 @@ namespace SimpleSportsStore.Test
                 + @"<a href=""Page3"">3</a>");
         }
 
-        [TestMethod]
-        public void Can_Filter_Products() {
 
-        // Arrange
-        // - create the mock repository
+        [TestMethod]
+        public void Can_Filter_Products()
+        {
+
+            // Arrange
+            // - create the product list for the mock repository
             var products = new List<Product> {
             new Product {ProductID = 1, Name = "P1", Category = "Cat1"},
             new Product {ProductID = 2, Name = "P2", Category = "Cat2"},
@@ -84,19 +87,71 @@ namespace SimpleSportsStore.Test
 
             var mockRepo = new FakeProductRepository(products);
 
-        // Arrange - create a controller and make the page size 3 items
+            // Arrange - create a controller and make the page size 3 items
             var controller = new ProductController(mockRepo);
             controller.PageSize = 3;
 
-        // Action
-        Product[] result = ((ProductsListViewModel)controller.List("Cat2", 1).Model)
-            .Products.ToArray();
+            // Action
+            Product[] result = ((ProductsListViewModel)controller.List("Cat2", 1).Model)
+                .Products.ToArray();
 
-        // Assert
-        Assert.AreEqual(result.Length, 2);
-        Assert.IsTrue(result[0].Name == "P2" && result[0].Category == "Cat2");
-        Assert.IsTrue(result[1].Name == "P4" && result[1].Category == "Cat2");
+            // Assert
+            Assert.AreEqual(result.Length, 2);
+            Assert.IsTrue(result[0].Name == "P2" && result[0].Category == "Cat2");
+            Assert.IsTrue(result[1].Name == "P4" && result[1].Category == "Cat2");
         }
 
+        [TestMethod]
+        public void Can_Create_Categories()
+        {
+            // Arrange
+            // - create the mock repository
+            // - create the product list for the mock repository
+            var products = new List<Product> 
+             {
+                new Product {ProductID = 1, Name = "P1", Category = "Apples"},
+                new Product {ProductID = 2, Name = "P2", Category = "Apples"},
+                new Product {ProductID = 3, Name = "P3", Category = "Plums"},
+                new Product {ProductID = 4, Name = "P4", Category = "Oranges"}
+             };
+
+            var mockRepo = new FakeProductRepository(products);
+
+            // Arrange - create the controller
+            NavController target = new NavController(mockRepo);
+
+            // Act = get the set of categories
+            string[] results = ((IEnumerable<string>)target.Menu().Model).ToArray();
+
+            // Assert
+            Assert.AreEqual(results.Length, 3);
+            Assert.AreEqual(results[0], "Apples");
+            Assert.AreEqual(results[1], "Oranges");
+            Assert.AreEqual(results[2], "Plums");
+        }
+
+        [TestMethod]
+        public void Indicates_Selected_Category()
+        {
+            // Arrange
+            // Create mock repository and product list
+            var products = new List<Product> 
+             {
+                new Product {ProductID = 1, Name = "P1", Category = "Apples"},
+                new Product {ProductID = 4, Name = "P2", Category = "Oranges"}
+             };
+            var mockRepo = new FakeProductRepository(products);
+
+            // Arrange - create the controller
+            NavController target = new NavController(mockRepo);
+            // Arrange - define the category to selected
+            string categoryToSelect = "Apples";
+
+            // Action
+            string result = target.Menu(categoryToSelect).ViewBag.SelectedCategory;
+
+            // Assert
+            Assert.AreEqual(categoryToSelect, result);
+        }
     }
 }
