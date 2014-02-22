@@ -13,7 +13,7 @@ using SimpleSportsStore.WebUI.HtmlHelpers;
 namespace SimpleSportsStore.Test
 {
     [TestClass]
-    public class UnitTest1
+    public class ProductTests
     {
         [TestMethod]
         public void Can_Paginate()

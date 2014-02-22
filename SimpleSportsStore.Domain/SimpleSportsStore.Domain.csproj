@@ -50,6 +50,7 @@
     <Compile Include="Concrete\EFDbContext.cs" />
     <Compile Include="Concrete\FakeProductRepository.cs" />
     <Compile Include="Concrete\ProductRepository.cs" />
+    <Compile Include="Entities\Cart.cs" />
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Migrations\201402122009480_InitialCreate.cs" />
     <Compile Include="Migrations\201402122009480_InitialCreate.Designer.cs">

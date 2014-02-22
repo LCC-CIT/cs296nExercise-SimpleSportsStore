@@ -3,6 +3,13 @@
 <div class="item">
     <h3>@Model.Name</h3>
     @Model.Description
+    @using (Html.BeginForm("AddToCard", "Cart"))
+    {
+        // hidden fileds used by CartController.AddToCart and .RemoveFromCart
+        @Html.HiddenFor(x => x.ProductID)   
+        @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+        <input type="submit" value="+ Add to cart" />
+    }
     <h4>@Model.Price.ToString("c")</h4>
     @if(Model.InStock){ <p>In stock</p>} else {<p>Out of stock</p>}
 </div>
