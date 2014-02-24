@@ -3,7 +3,8 @@
 <div class="item">
     <h3>@Model.Name</h3>
     @Model.Description
-    @using (Html.BeginForm("AddToCard", "Cart"))
+    @* BeginForm parameters: action, controller to post back to*@
+    @using (Html.BeginForm("AddToCart", "Cart"))
     {
         // hidden fileds used by CartController.AddToCart and .RemoveFromCart
         @Html.HiddenFor(x => x.ProductID)   

@@ -1,5 +1,7 @@
 ﻿using SimpleSportsStore.Domain.Abstract;
+using SimpleSportsStore.Domain.Concrete;
 using SimpleSportsStore.Domain.Entities;
+using SimpleSportsStore.WebUI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +13,11 @@ namespace SimpleSportsStore.WebUI.Controllers
     public class CartController : Controller
     {
         private IProductRepository repository;
+
+        public CartController()
+        {
+            repository = new EFProductRepository();
+        }
 
         public CartController(IProductRepository repo)
         {
