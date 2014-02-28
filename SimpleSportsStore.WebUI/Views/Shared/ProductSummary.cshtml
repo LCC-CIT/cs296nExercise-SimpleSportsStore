@@ -12,4 +12,5 @@
         <input type="submit" value="+ Add to cart" />
     }
     <h4>@Model.Price.ToString("c")</h4>
+    @(Model.InStock ? "In stock" : "Out of stock")
 </div>
