@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SimpleSportsStore.Domain.Entities;
+using SportsStore.WebUI.Binders;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -19,6 +21,8 @@ namespace SimpleSportsStore.WebUI
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            ModelBinders.Binders.Add(typeof(Cart), new CartModelBinder());
         }
     }
 }

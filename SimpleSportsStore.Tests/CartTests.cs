@@ -100,8 +100,10 @@ namespace SimpleSportsStore.WebUI.Tests
             // Arrange - add some items
             target.AddItem(p1, 1);
             target.AddItem(p2, 1);
+
             // Act - reset the cart
             target.Clear();
+
             // Assert
             Assert.AreEqual(target.Lines.Count(), 0);
         }

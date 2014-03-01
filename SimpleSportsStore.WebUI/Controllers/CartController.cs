@@ -24,41 +24,41 @@ namespace SimpleSportsStore.WebUI.Controllers
             repository = repo;
         }
 
-        public ViewResult Index(string returnUrl)
+        public ViewResult Index(Cart cart, string returnUrl)
         {
-            return View(new CartIndexViewModel
-            {
-                Cart = GetCart(),
-                ReturnUrl = returnUrl
-            });
+            return View(new CartIndexViewModel {
+                Cart = cart,
+                ReturnUrl = returnUrl}
+                );
         }
 
         // Receives POST variables from ProductSummary view
-        public RedirectToRouteResult AddToCart(int productId, string returnUrl)
+        public RedirectToRouteResult AddToCart(Cart cart, int productId, string returnUrl)
         {
             Product product = repository.Products
                 .FirstOrDefault(p => p.ProductID == productId);
             if (product != null)
             {
-                GetCart().AddItem(product, 1);
+                cart.AddItem(product, 1);
             }
             // Send a HTTP redirect instruction to the browser
             return RedirectToAction("Index", new { returnUrl });
         }
 
         // Receives POST variables from ProductSummary view
-        public RedirectToRouteResult RemoveFromCart(int productId, string returnUrl)
+        public RedirectToRouteResult RemoveFromCart(Cart cart, int productId, string returnUrl)
         {
             Product product = repository.Products
                 .FirstOrDefault(p => p.ProductID == productId);
             if (product != null)
             {
-                GetCart().RemoveLine(product);
+                cart.RemoveLine(product);
             }
             // Send a HTTP redirect instruction to the browser 
             return RedirectToAction("Index", new { returnUrl });    
         }
 
+        /* This is done by the CartModelBinder now
         // This method allows the cart object to persist between http requests
         private Cart GetCart()
         {
@@ -70,6 +70,6 @@ namespace SimpleSportsStore.WebUI.Controllers
             }
             return cart;
         }
-
+        */
     }
 }
