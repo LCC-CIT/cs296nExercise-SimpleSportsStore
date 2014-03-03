@@ -58,6 +58,11 @@ namespace SimpleSportsStore.WebUI.Controllers
             return RedirectToAction("Index", new { returnUrl });    
         }
 
+        public PartialViewResult Summary(Cart cart)
+        {
+            return PartialView(cart);
+        }
+
         /* This is done by the CartModelBinder now
         // This method allows the cart object to persist between http requests
         private Cart GetCart()
