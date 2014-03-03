@@ -113,8 +113,8 @@
       <Name>SimpleSportsStore.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\SimpleSportsStore.WebUI\SimpleSportsStore.WebUI.csproj">
-      <Project>{E1784C8E-B00A-456D-ACFE-E59F5504DE58}</Project>
-      <Name>cs297nExample-SimpleSportsStore</Name>
+      <Project>{e1784c8e-b00a-456d-acfe-e59f5504de58}</Project>
+      <Name>SimpleSportsStore.WebUI</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
