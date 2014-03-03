@@ -127,7 +127,7 @@ namespace SimpleSportsStore.WebUI.Tests
             Cart cart = new Cart(); 
  
             // Arrange - create the controller
-            CartController target = new CartController(mockRepo); 
+            CartController target = new CartController(mockRepo, null); 
  
             // Act - add a product to the cart
             target.AddToCart(cart, 1, null); 
@@ -149,7 +149,7 @@ namespace SimpleSportsStore.WebUI.Tests
             Cart cart = new Cart();
 
             // Arrange - create the controller
-            CartController target = new CartController(mockRepo);
+            CartController target = new CartController(mockRepo, null);
 
             // Act - add a product to the cart
             RedirectToRouteResult result = target.AddToCart(cart, 2, "myUrl");
@@ -166,7 +166,7 @@ namespace SimpleSportsStore.WebUI.Tests
             Cart cart = new Cart();
 
             // Arrange - create the controller
-            CartController target = new CartController(null);
+            CartController target = new CartController(null, null);
 
             // Act - call the Index action method
             CartIndexViewModel result
@@ -175,7 +175,29 @@ namespace SimpleSportsStore.WebUI.Tests
             // Assert
             Assert.AreSame(result.Cart, cart);
             Assert.AreEqual(result.ReturnUrl, "myUrl");
-        } 
+        }
+
+        [TestMethod]
+        public void Cannot_Checkout_Empty_Cart()
+        {
+            // Arrange - create a mock order processor
+            var flags = new OrderFlags();
+            var mockOrderProc = new FakeOrderProcessor(flags);
+            // Arrange - create an empty cart
+            Cart cart = new Cart();
+            // Arrange - create shipping details
+            ShippingDetails shippingDetails = new ShippingDetails();
+            // Arrange - create an instance of the controller
+            CartController target = new CartController(null, mockOrderProc);
+            // Act
+            ViewResult result = target.Checkout(cart, shippingDetails);
+            // Assert - check that the order hasn't been passed on to the processor
+            Assert.IsFalse(flags.OrderProcessed);
+            // Assert - check that the method is returning the default view
+            Assert.AreEqual("", result.ViewName);
+            // Assert - check that we are passing an invalid model to the view
+            Assert.AreEqual(false, result.ViewData.ModelState.IsValid);
+        }
 
     }
 }

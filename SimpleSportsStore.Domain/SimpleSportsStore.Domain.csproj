@@ -46,12 +46,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IOrderProcessor.cs" />
     <Compile Include="Abstract\IProductRepository.cs" />
     <Compile Include="Concrete\EFDbContext.cs" />
+    <Compile Include="Concrete\EmailOrderProcessor.cs" />
+    <Compile Include="Concrete\FakeOrderProcessor.cs" />
     <Compile Include="Concrete\FakeProductRepository.cs" />
     <Compile Include="Concrete\ProductRepository.cs" />
     <Compile Include="Entities\Cart.cs" />
     <Compile Include="Entities\Product.cs" />
+    <Compile Include="Entities\ShippingDetails.cs" />
     <Compile Include="Migrations\201402122009480_InitialCreate.cs" />
     <Compile Include="Migrations\201402122009480_InitialCreate.Designer.cs">
       <DependentUpon>201402122009480_InitialCreate.cs</DependentUpon>
