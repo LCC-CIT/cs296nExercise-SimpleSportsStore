@@ -199,5 +199,49 @@ namespace SimpleSportsStore.WebUI.Tests
             Assert.AreEqual(false, result.ViewData.ModelState.IsValid);
         }
 
+        [TestMethod]
+        public void Cannot_Checkout_Invalid_ShippingDetails()
+        {
+            // Arrange - create a mock order processor
+            var flags = new OrderFlags();
+            var mockOrderProc = new FakeOrderProcessor(flags);
+            // Arrange - create a cart with an item
+            Cart cart = new Cart();
+            cart.AddItem(new Product(), 1);
+            // Arrange - create an instance of the controller
+            CartController target = new CartController(null, mockOrderProc);
+            // Arrange - add an error to the model
+            target.ModelState.AddModelError("error", "error");
+            // Act - try to checkout
+            ViewResult result = target.Checkout(cart, new ShippingDetails());
+            // Assert - check that the order hasn't been passed on to the processor
+            Assert.IsFalse(flags.OrderProcessed);
+            // Assert - check that the method is returning the default view
+            Assert.AreEqual("", result.ViewName);
+            // Assert - check that we are passing an invalid model to the view
+            Assert.AreEqual(false, result.ViewData.ModelState.IsValid);
+        }
+
+        [TestMethod]
+        public void Can_Checkout_And_Submit_Order()
+        {
+            // Arrange - create a mock order processor
+            var flags = new OrderFlags();
+            var mockOrderProc = new FakeOrderProcessor(flags);
+            // Arrange - create a cart with an item
+            Cart cart = new Cart();
+            cart.AddItem(new Product(), 1);
+            // Arrange - create an instance of the controller
+            CartController target = new CartController(null, mockOrderProc);
+            // Act - try to checkout
+            ViewResult result = target.Checkout(cart, new ShippingDetails());
+            // Assert - check that the order has been passed on to the processor
+            Assert.IsTrue(flags.OrderProcessed);
+            // Assert - check that the method is returning the Completed view
+            Assert.AreEqual("Completed", result.ViewName);
+            // Assert - check that we are passing a valid model to the view
+            Assert.AreEqual(true, result.ViewData.ModelState.IsValid);
+        }
+
     }
 }

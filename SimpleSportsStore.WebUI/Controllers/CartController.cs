@@ -18,6 +18,8 @@ namespace SimpleSportsStore.WebUI.Controllers
         public CartController()
         {
             repository = new EFProductRepository();
+            var settings = new EmailSettings();
+            orderProcessor = new EmailOrderProcessor(settings);
         }
 
         public CartController(IProductRepository repo, IOrderProcessor proc)
