@@ -54,6 +54,10 @@ namespace SimpleSportsStore.WebUI.Controllers
             }
         }
 
+        public ViewResult Create()
+        {
+            return View("Edit", new Product()); // use a new Product object so the Edit view will render empty fields
+        }
 
     }
 }
