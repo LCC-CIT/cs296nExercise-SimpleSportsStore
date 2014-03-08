@@ -39,6 +39,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -72,6 +73,10 @@
     <Compile Include="Migrations\201402122202388_RequireCategory.Designer.cs">
       <DependentUpon>201402122202388_RequireCategory.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201403080111075_MoreProductModelRestrictions.cs" />
+    <Compile Include="Migrations\201403080111075_MoreProductModelRestrictions.Designer.cs">
+      <DependentUpon>201403080111075_MoreProductModelRestrictions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -91,6 +96,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201402122202388_RequireCategory.resx">
       <DependentUpon>201402122202388_RequireCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201403080111075_MoreProductModelRestrictions.resx">
+      <DependentUpon>201403080111075_MoreProductModelRestrictions.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
