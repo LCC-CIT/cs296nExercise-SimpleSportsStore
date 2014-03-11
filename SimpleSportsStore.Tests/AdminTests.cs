@@ -19,12 +19,14 @@ namespace SimpleSportsStore.WebUI.Tests
             var mockRepo = new FakeProductRepository(new List<Product> {
                             new Product {ProductID = 1, Name = "P1"},
                             new Product {ProductID = 2, Name = "P2"},
-                            new Product {ProductID = 3, Name = "P3"} } );
+                            new Product {ProductID = 3, Name = "P3"} });
 
             // Arrange - create an Admin controller  
             AdminController target = new AdminController(mockRepo);
 
             // Action - Qyery for all products
+            // Note: We're getting an array of Products out of the 
+            // ViewData returned by the AdminController.Index method
             Product[] result = ((IEnumerable<Product>)target.Index().
                 ViewData.Model).ToArray();
 
@@ -36,7 +38,8 @@ namespace SimpleSportsStore.WebUI.Tests
         }
 
         [TestMethod]
-        public void Can_Edit_Product() {
+        public void Can_Edit_Product()
+        {
 
             // Arrange - create the mock repository with three products
             var mockRepo = new FakeProductRepository(new List<Product> {
@@ -82,8 +85,9 @@ namespace SimpleSportsStore.WebUI.Tests
         }
 
         [TestMethod]
-        public void Can_Save_Valid_Changes() {
-            
+        public void Can_Save_Valid_Changes()
+        {
+
             // Arrange - create mock repository
             var mockRepo = new FakeProductRepository();
             // Arrange - create the controller
@@ -95,16 +99,16 @@ namespace SimpleSportsStore.WebUI.Tests
             ActionResult result = target.Edit(product);
 
             // Assert - check that the repository has a product
-            Assert.IsTrue(mockRepo.Products.Count() == 1);  
+            Assert.IsTrue(mockRepo.Products.Count() == 1);
             // Assert - check the method result type
-            Assert.IsNotInstanceOfType(result, typeof(ViewResult)); 
-        } 
+            Assert.IsNotInstanceOfType(result, typeof(ViewResult));
+        }
 
         [TestMethod]
-        public void Cannot_Save_Invalid_Changes() {
+        public void Cannot_Save_Invalid_Changes()
+        {
 
             // Arrange - create mock repository 
-
             var mockRepo = new FakeProductRepository();
             // Arrange - create the controller
             AdminController target = new AdminController(mockRepo);
@@ -122,5 +126,24 @@ namespace SimpleSportsStore.WebUI.Tests
             Assert.IsInstanceOfType(result, typeof(ViewResult));
         }
 
+        [TestMethod]
+        public void Can_Delete_Valid_Products()
+        {
+
+            // Arrange - create a Product
+            Product prod = new Product { ProductID = 2, Name = "Test" };
+
+            // Arrange - create the mock repository and add three products, including prod
+            var mockRepo = new FakeProductRepository(new List<Product> { new Product {ProductID = 1, Name = "P1"},
+                                prod, new Product {ProductID = 3, Name = "P3"} } );
+            // Arrange - create the controller
+            AdminController target = new AdminController(mockRepo);
+
+            // Act - delete the product
+            target.Delete(prod.ProductID);
+
+            // Assert - ensure that the repository delete method deleted the correct Product 
+            Assert.IsNull(mockRepo.Products.FirstOrDefault(p => p.ProductID == prod.ProductID));
+        }
     }
 }

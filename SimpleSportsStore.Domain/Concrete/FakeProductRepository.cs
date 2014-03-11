@@ -54,5 +54,21 @@ namespace SimpleSportsStore.Domain.Concrete
                 }
             }
         }
+
+
+        public Product DeleteProduct(int productID)
+        {
+            Product prodToDelete = null;
+            foreach (Product p in products)
+            {
+                if (p.ProductID == productID)
+                {
+                    prodToDelete = p;
+                    products.Remove(p);
+                    break;
+                }
+            }
+            return prodToDelete;
+        }
     }
 }

@@ -43,15 +43,28 @@ namespace SimpleSportsStore.WebUI.Controllers
             if (ModelState.IsValid)
             {
                 repository.SaveProduct(product);
-                TempData["message"] = string.Format("{0} has been saved", product.Name);
                 // TempData is a Dictionary that stores a key-value pair until the end of the HTTP request
+                TempData["message"] = string.Format("{0} has been saved", product.Name);
                 return RedirectToAction("Index");
             }
             else
             {
-                // there is something wrong with the data values 
+                // we got here because there is something wrong with the data values 
                 return View(product);
             }
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int productId)
+        {
+            // Delete it!
+            Product deletedProduct = repository.DeleteProduct(productId);
+            if (deletedProduct != null)   // If it was deleted, it's not null
+            {
+                TempData["message"] = string.Format("{0} was deleted",
+                    deletedProduct.Name);
+            }
+            return RedirectToAction("Index");  // Back to the main Admin page
         }
 
         public ViewResult Create()

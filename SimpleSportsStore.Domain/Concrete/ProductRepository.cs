@@ -17,16 +17,16 @@ namespace SimpleSportsStore.Domain.Concrete
             get { return context.Products; } 
         }
 
-        public void SaveProduct(Product product)
+        public void SaveProduct(Product product)   // Used for both Creating and Updating
         {
 
-            if (product.ProductID == 0)
+            if (product.ProductID == 0)   // Only add it if this is product isn't in the dB
             {
                 context.Products.Add(product);
             }
-            else
+            else   // If it's already in the dB, then update the property values
             {
-                Product dbEntry = context.Products.Find(product.ProductID);
+                Product dbEntry = context.Products.Find(product.ProductID);  
                 if (dbEntry != null)
                 {
                     dbEntry.Name = product.Name;
@@ -36,6 +36,17 @@ namespace SimpleSportsStore.Domain.Concrete
                 }
             }
             context.SaveChanges();
+        }
+
+        public Product DeleteProduct(int productID)
+        {
+            Product dbEntry = context.Products.Find(productID);   // Make sure it's there first
+            if (dbEntry != null)
+            {
+                context.Products.Remove(dbEntry);   // Delete it
+                context.SaveChanges();
+            }
+            return dbEntry;
         }
     }
 }
